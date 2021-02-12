@@ -1,0 +1,80 @@
+﻿@if (IsLoading)
+{
+  @CardLoadingContent
+}
+else
+{
+
+    <div class="@CardCss">
+
+        <div class="@CardHeaderCss">           
+
+            <h3 class="@CardTitleCss">               
+
+                @CardHeaderTextContent
+
+            </h3>
+        </div>
+        <div class="@CardBodyCss">            
+
+            @CardBodyContent
+
+        </div>
+
+        <div class="@CardFooterCss">
+            @CardFooterContent
+        </div>
+    </div>
+}
+
+@code{
+    /// <summary>
+    /// Show content when is has loaded
+    /// </summary>
+    [Parameter] public bool IsLoading { get; set; }
+
+    /// <summary>
+    /// Card Css Property. Wraps entire card. Setting this to string.Empty will clear the card class
+    /// </summary>
+    [Parameter] public string CardCss { get; set; } = "card mx-auto";
+
+    /// <summary>
+    /// Card Header Css Property. Wraps entire Header element. Setting this to string.Empty will clear the card class
+    /// </summary>
+    [Parameter] public string CardHeaderCss { get; set; } = "card-body";
+
+    /// <summary>
+    /// Card Title Css Property using h3 element. Setting this to string.Empty will clear the card class
+    /// </summary>
+    [Parameter] public string CardTitleCss { get; set; } = "card-title";
+
+    /// <summary>
+    /// Card Body Css Property. Wraps entire body of the card. Setting this to string.Empty will clear the card class
+    /// </summary>
+    [Parameter] public string CardBodyCss { get; set; } = "card-body";
+
+    /// <summary>
+    /// Card Footer Css Property. Wraps entire Footer element. Setting this to string.Empty will clear the card class
+    /// </summary>
+    [Parameter] public string CardFooterCss { get; set; } = "card-body";
+
+    /// <summary>
+    /// Content that is visible while loading
+    /// </summary>
+    [Parameter] public RenderFragment CardLoadingContent { get; set; }
+
+    /// <summary>
+    /// Text content inside the header h3 element
+    /// </summary>
+    [Parameter] public RenderFragment CardHeaderTextContent { get; set; }
+
+    /// <summary>
+    /// Main body of content in Card
+    /// </summary>
+    [Parameter] public RenderFragment CardBodyContent { get; set; }
+
+    /// <summary>
+    /// Content at the foot of the card
+    /// </summary>
+    [Parameter] public RenderFragment CardFooterContent { get; set; }
+}

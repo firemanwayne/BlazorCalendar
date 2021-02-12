@@ -1,0 +1,14 @@
+﻿@inherits ToastNotificationsBase
+
+@if (ToastState == null)
+{
+}
+else
+{
+    <div class="toast-container" aria-live="polite" aria-atomic="true">
+        @foreach (var item in ToastState.NotificationHandler.ToastNotifications)
+        {
+            <ToastNotificationCard @key=item.Id Notification=item OnMessageAcknowledged="@(() => OnMessageAcknowledged(item.Id))" />
+        }
+    </div>
+}

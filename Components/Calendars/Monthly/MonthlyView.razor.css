@@ -1,0 +1,209 @@
+﻿.visible-day {
+    z-index: 1;
+    opacity: 1;
+    background-color: InactiveBorder;
+    box-shadow: 0px 5px 4px -4px black;
+    border: 1px solid black;
+}
+
+    .visible-day:hover {
+        background-color: lightgray;
+    }
+
+.Cal-Border-Bottom {
+    border-bottom: 1px solid black;
+}
+
+.Cal-Day-Number-Hover-Yellow {
+    font: bold;
+    font-family: serif;
+    font-size: 18px;
+    float: right;
+    padding: 0 8px;
+    margin: 0;
+}
+
+    .Cal-Day-Number-Hover-Yellow:hover {
+        background-color: #ffeb3b;
+        cursor: pointer;
+    }
+
+.Cal-Day-Number-Hover-Red {
+    font: bold;
+    font-size: 14px;
+    float: right;
+    padding: 4px 4px 4px 4px;
+}
+
+    .Cal-Day-Number-Hover-Red:hover {
+        background-color: #f44336;
+    }
+
+.Cal-Day-Number-Hover-Blue {
+    font: bold;
+    font-size: 14px;
+    float: right;
+    padding: 4px 4px 4px 4px;
+}
+
+    .Cal-Day-Number-Hover-Blue:hover {
+        background-color: #2196F3;
+    }
+
+.Cal-Day-Number-Hover-Green {
+    font: bold;
+    font-size: 14px;
+    float: right;
+    padding: 4px 4px 4px 4px;
+}
+
+    .Cal-Day-Number-Hover-Green:hover {
+        background-color: #4CAF50;
+    }
+
+.Cal-Event-Container {
+    display: flex;
+    flex-direction: column;
+}
+
+.Cal-Event-List {
+    padding: 0;
+}
+
+.Cal-Header-Container {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.Cal-Header-Date-Container {
+    width: 100%;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
+.Cal-Header-Title {
+    text-shadow: 1px 1px 0 #444;
+    font-size: 4vh;
+    font-family: serif;
+    margin: 6px 12px 6px 12px;
+}
+
+.Cal-Table-Container {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.Cal-Table {
+    table-layout: fixed;
+    border: 1px solid grey;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 500px;
+}
+
+.Cal-Table-Header-Row {
+    background-color: lightgrey;
+}
+
+.Cal-Table-Header-Cell {
+    border: 1px solid grey;
+    font-size: 1.5vh;
+    font-family: serif;
+    display: table-cell;
+    padding: 0 2px 2px 1px;
+    text-align: center;
+    width: 1vmin;
+}
+
+.Cal-Text-Red {
+    color: #ff0000;
+}
+
+.Cal-Text-Blue {
+    color: #0026ff;
+}
+
+.Cal-Text-Green {
+    color: darkgreen;
+}
+
+.Cal-Text-Yellow {
+    color: yellow;
+}
+
+.Cal-Text-Orange {
+    color: #ff6a00;
+}
+
+.Cal-Text-Purple {
+    color: #4800ff;
+}
+
+.Cal-Text-Black {
+    color: black;
+}
+
+.Cal-Table-Data-Cell {
+    border: .1px solid lightgrey;
+    padding: 0;
+    width: 14%;
+    height: 1vmax;
+    vertical-align: top;
+}
+
+.Cal-Date-Container {
+    padding: 0;
+    margin-top: 10px;
+}
+
+.Cal-Date-Label-Container {
+    padding: 0;
+    margin: 0;
+    min-height: 15px;
+}
+
+.Cal-Event-Container {
+    display: flex;
+    flex-direction: column;
+}
+
+.Cal-Today {
+    background-color: skyblue !important;
+}
+
+.Daily-Container {
+    padding: 16px;
+    display: grid !important;
+    grid-template-columns: auto;
+}
+
+.Daily-Header-Container {
+    background-color: grey;
+    padding: 10px;
+}
+
+.Daily-Body-Container {
+    margin: 0;
+    overflow-y: auto;
+    max-height: 700px;
+    padding: 12px;
+    display: grid !important;
+    grid-template-columns: auto !important;
+    cursor: pointer;
+}
+
+.Daily-List {
+    font-size: small;
+    padding: 12px;
+}
+
+.Daily-List-Item {
+    padding: 10px;
+    border-collapse: separate;
+    border: 1px solid grey;
+}

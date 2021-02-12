@@ -1,0 +1,104 @@
+﻿        
+<div>
+    <div class="row" style="margin-bottom: 30px;">
+
+        <div class="col-md-4">
+            <h3 class="align-self-start">@HeaderText</h3>
+        </div>
+
+        <div class="@HeaderClassCss" style="@HeaderStyle">
+            @if (HeaderContent != null)
+            {
+                @HeaderContent
+            }
+        </div>
+    </div>
+    <div class="row">
+
+        <CascadingValue Value="this">
+            <div class="col-md-2">
+
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+                    @MenuButtons
+
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="tab-content" id="v-pills-tabContent">
+
+                    @MenuPages
+
+                </div>
+            </div>
+        </CascadingValue>
+
+    </div>
+</div>
+@code{
+    [Parameter] public string HeaderStyle { get; set; } = "text-align:right;";
+
+    [Parameter] public string HeaderClassCss { get; set; } = "col-md-8";
+
+    [Parameter] public RenderFragment HeaderContent { get; set; }
+
+    [Parameter] public string HeaderText { get; set; }
+
+    [Parameter] public RenderFragment MenuButtons { get; set; }
+
+    [Parameter] public RenderFragment MenuPages { get; set; }
+
+    public MenuPage ActivePage { get; set; }
+    public MenuButton ActiveButton { get; set; }
+
+    public IList<MenuPage> Pages { get; set; } = new List<MenuPage>();
+    public IList<MenuButton> Buttons { get; set; } = new List<MenuButton>();
+
+    internal void AddButton(MenuButton button)
+    {
+        Buttons.Add(button);
+
+        if (Buttons.Count == 1 && button.IsVisible)
+        {
+            ActiveButton = button;
+            ActiveButton.Activate();
+        }
+        else
+        {
+            button.DeActivate();
+        }
+
+        InvokeAsync(() => StateHasChanged());
+    }
+
+    internal void AddPage(MenuPage menuPage)
+    {
+        Pages.Add(menuPage);
+
+        if (Pages.Count == 1)
+        {
+            ActivePage = menuPage;
+            ActivePage.Activate();
+        }
+
+        InvokeAsync(() => StateHasChanged());
+    }
+
+    public void ActivatePage(string buttonId)
+    {
+        var clickedPage = Pages.FirstOrDefault(e => e.ButtonId.Equals(buttonId));
+        var clickedButton = Buttons.FirstOrDefault(e => e.ButtonId.Equals(buttonId));
+
+        foreach (var item in Pages)
+            if (item.ButtonId.Equals(buttonId))
+                item.Activate();
+            else
+                item.DeActivate();
+
+        foreach (var item in Buttons)
+            if (item.ButtonId.Equals(buttonId))
+                item.Activate();
+            else
+                item.DeActivate();
+    }
+}

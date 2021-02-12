@@ -1,0 +1,12 @@
+﻿@code {
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public string DisplayStyle { get; set; } = "none";
+}
+
+    <div class="bs-overlay" style="display:@DisplayStyle">
+        @ChildContent
+    </div>

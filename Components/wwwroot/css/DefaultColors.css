@@ -1,0 +1,115 @@
+
+.default-blue {
+    color: #0a78a7;
+}
+
+.light-grey-background {
+    color: #EEEEEE;
+}
+
+.default-blue-background {
+    background: #0a78a7;
+}
+
+.gradient-background {
+    background: rgb(17,118,163);
+    background: radial-gradient(circle, rgba(17,118,163,1) 0%, rgba(10,62,85,1) 100%);
+}
+
+.notification-red {
+    color: #D61212;
+}
+
+.default-dark-grey {
+    color: #3e3e3e;
+}
+
+.default-medium-grey {
+    color: #818D92;
+}
+
+.default-call-to-action {
+    color: white !important;
+    background-color: #1176A3 !important
+}
+
+.dark-grey-opaque {
+    color: #3e3e3e;
+    opacity: 0.3;
+}
+
+body {
+    background-color: #f5f6f8 !important;
+}
+.validation-errors{
+    background-color: rgb(220, 53, 69);
+    color:white;
+    padding:8px;
+    text-align:center; 
+    font-size:16px;
+    font-weight:500;
+}
+div.validation-message {
+    color: rgb(220, 53, 69);
+    font-weight: 500;
+}
+.modified.invalid {
+    border: solid 1px #D61212;
+}
+.modified.valid {
+    border: solid 1px #02bb00;
+}
+
+.invalid {
+    color: rgb(220, 53, 69);
+    font-weight: 500;
+}
+div.valid {
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;       
+}
+    div.valid:focus-within {
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+        border: 1px solid rgba(81, 203, 238, 1);
+    }
+    div.valid:focus-within div.valid {
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+        border: 1px solid rgba(81, 203, 238, 1);
+    }
+    div.invalid:focus-within {
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+        border: 1px solid rgba(81, 203, 238, 1);
+    }
+
+        div.invalid:focus-within div.invalid {
+            box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+            border: 1px solid rgba(81, 203, 238, 1);
+        }
+label.valid {
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+}
+
+    label.valid:focus-within {
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+        border: 1px solid rgba(81, 203, 238, 1);
+    }
+
+        label.valid:focus-within label.valid {
+            box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+            border: 1px solid rgba(81, 203, 238, 1);
+        }
+
+label.invalid:focus-within {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+}
+
+    label.invalid:focus-within label.invalid {
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+        border: 1px solid rgba(81, 203, 238, 1);
+    }

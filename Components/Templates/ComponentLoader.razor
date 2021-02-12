@@ -1,0 +1,29 @@
+﻿@if (IsLoading)
+{
+    @LoadingTemplate
+}
+else
+{
+    if (IsFaulted)
+    {
+        @FaultedContentTemplate
+    }
+    else
+    {
+       @ContentTemplate
+    }
+}
+
+@code{
+    [Parameter] public bool IsLoading { get; set; }
+
+    [Parameter] public bool IsFaulted { get; set; }
+
+    [Parameter] public RenderFragment LoadingTemplate { get; set; }
+
+    [Parameter] public RenderFragment ContentTemplate { get; set; }
+
+    [Parameter] public RenderFragment FaultedContentTemplate { get; set; }
+
+    public IList<string> ErrorMessages { get; set; } = new List<string>();
+}

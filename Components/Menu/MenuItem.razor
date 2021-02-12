@@ -1,0 +1,67 @@
+﻿@code {
+    string CollapseClass { get; set; } = collapse;
+    string ArrowIcon { get; set; } = ArrowDown;
+    string Id { get; set; }
+
+    [Parameter] public string Name { get; set; }
+    [Parameter] public string LogoName { get; set; }
+    [Parameter] public string HrefLink { get; set; } = "javascript:void(0)";
+    [Parameter] public string ModuleColor { get; set; }
+    [Parameter] public IList<SidebarMenuListItem> NavItems { get; set; } = new List<SidebarMenuListItem>();
+
+    [CascadingParameter] JavascriptNavbar ParentNavBar { get; set; }
+
+    const string outerTextColor = "#f4f4f4";
+    const string innerTextColor = "#727272";
+    const string collapse = "collapse";
+    const string ArrowUp = "keyboard_arrow_up";
+    const string ArrowDown = "keyboard_arrow_down";
+    const string dropDownBackgroundColor = "#ffffff";
+
+    protected override void OnInitialized()
+    {
+        Id = Guid.NewGuid().ToString();
+
+        ParentNavBar.AddMenuItem(this);
+    }
+
+    internal void Collapse()
+    {
+        CollapseClass = collapse;
+        ArrowIcon = ArrowDown;
+    }
+
+    void HandleClick()
+    {
+        if (CollapseClass == collapse)
+        {
+            CollapseClass = "";
+            ArrowIcon = ArrowUp;
+        }
+        else
+            Collapse();
+    }
+}
+
+<a class="card-header card-link" href="@HrefLink" @onclick="HandleClick" style="color: @outerTextColor" aria-expanded="false">
+    <span class="material-icons" style="color:inherit">@LogoName</span>
+    <span style="color:inherit">@Name</span>
+
+    @if (NavItems.Any())
+    {
+        <span class="pl-4 material-icons" style="color:inherit">
+            @ArrowIcon
+        </span>
+    }
+</a>
+@if (NavItems.Any())
+{
+    <div class="panel-collapse @CollapseClass">
+        <div class="card-body p-0" style="background-color:@dropDownBackgroundColor">
+            @foreach (var item in NavItems)
+            {
+                <a href="@item.HrefLink" class="px-0 pr-3 text-center" style="color: @innerTextColor">@item.Name</a>
+            }
+        </div>
+    </div>
+}

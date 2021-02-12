@@ -1,0 +1,158 @@
+﻿@code{
+
+    [Parameter] public DateTime Today { get; set; } = new DateTime();
+
+    public MonthBase CurrentMonth { get; set; }
+
+    public ElementReference MessagePlaceHolder { get; set; }
+
+    IList<MonthlyDate> Mondays { get; set; } = new List<MonthlyDate>();
+    IList<MonthlyDate> Tuesdays { get; set; } = new List<MonthlyDate>();
+    IList<MonthlyDate> Wednesdays { get; set; } = new List<MonthlyDate>();
+    IList<MonthlyDate> Thursdays { get; set; } = new List<MonthlyDate>();
+    IList<MonthlyDate> Fridays { get; set; } = new List<MonthlyDate>();
+    IList<MonthlyDate> Saturdays { get; set; } = new List<MonthlyDate>();
+    IList<MonthlyDate> Sundays { get; set; } = new List<MonthlyDate>();
+
+
+    public void NextMonth()
+    {
+        var Id = CurrentMonth.Number;
+        var Year = CurrentMonth.Year;
+
+        CurrentMonth = CurrentMonth.NextMonth();
+
+        StateHasChanged();
+    }
+    public void PreviousMonth()
+    {
+        var Id = CurrentMonth.Number;
+        var Year = CurrentMonth.Year;
+
+        CurrentMonth = CurrentMonth.PreviousMonth();
+
+        StateHasChanged();
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        Today = DateTime.Today;
+
+        var months = Months.MonthList(Today.Year)
+            .ToList();
+
+        CurrentMonth = months.FirstOrDefault(a => a.Number.Equals(Today.Month));
+
+        return Task.CompletedTask;
+    }
+
+    public void HandleDateSelected(bool Selected)
+    {
+
+    }
+}
+
+@if (CurrentMonth != null)
+{
+    <div class="container-fluid">
+
+        <div class="container">
+            <div class="container">
+                <span>@CurrentMonth.Name</span>
+                <span>@CurrentMonth.Year.Number</span>
+            </div>
+            <input value="@CurrentMonth.Number" type="hidden" />
+            <input value="@CurrentMonth.Year.Number" type="hidden" />
+        </div>
+        <div class="container col-4">
+            <div class="container">
+                <div class="btn-group">
+                    <button @onclick="PreviousMonth" class="btn btn-outline-primary">Previous Month</button>
+                    <button @onclick="NextMonth" class="btn btn-outline-primary">Next Month</button>
+                </div>
+                <div @ref="MessagePlaceHolder"></div>
+            </div>
+        </div>
+
+        <CascadingValue Value="this">
+            <div class="container">
+                <div class="card-header text-center">
+                    <div class="row">
+                        <span class="col-sm">Sunday</span>
+                        <span class="col-sm">Monday</span>
+                        <span class="col-sm">Tuesday</span>
+                        <span class="col-sm">Wednesday</span>
+                        <span class="col-sm">Thursday</span>
+                        <span class="col-sm">Friday</span>
+                        <span class="col-sm">Saturday</span>
+                    </div>
+                </div>
+                @foreach (var item in CurrentMonth.Weeks)
+                {
+                    <div class="card-deck text-center">
+                        @foreach (var day in item.WeekDays)
+                        {
+                            if (day.DayOfWeek.Equals(DayOfWeek.Sunday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day"/>
+                                    </ModalContent>
+                                </MonthlyDate>
+                            }
+                            if (day.DayOfWeek.Equals(DayOfWeek.Monday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day" />
+                                    </ModalContent>
+                                </MonthlyDate>
+                            }
+                            if (day.DayOfWeek.Equals(DayOfWeek.Tuesday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day" />
+                                    </ModalContent>
+                                </MonthlyDate>
+                            }
+                            if (day.DayOfWeek.Equals(DayOfWeek.Wednesday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day" />
+                                    </ModalContent>
+                                </MonthlyDate>
+                            }
+                            if (day.DayOfWeek.Equals(DayOfWeek.Thursday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day" />
+                                    </ModalContent>
+                                </MonthlyDate>
+                            }
+                            if (day.DayOfWeek.Equals(DayOfWeek.Friday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day" />
+                                    </ModalContent>
+                                </MonthlyDate>
+                            }
+                            if (day.DayOfWeek.Equals(DayOfWeek.Saturday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day" />
+                                    </ModalContent>                                                                 
+                                </MonthlyDate>
+                            }
+                        }
+                    </div>
+                }
+
+            </div>
+        </CascadingValue>
+    </div>
+}

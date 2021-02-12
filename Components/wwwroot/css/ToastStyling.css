@@ -1,0 +1,13 @@
+.toast-container {
+    position: absolute;
+    right: 0;
+    z-index: 100;
+    bottom: 0;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.toast {
+    width: 100% !important;
+    max-width: 100% !important;
+}

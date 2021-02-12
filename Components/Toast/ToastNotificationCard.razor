@@ -1,0 +1,37 @@
+﻿@inherits ToastNotificationCardBase
+
+
+
+<div class="toast @Notification.MutedTextValue @Notification.ShowToast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="@Notification.NotificationColor m-0">
+
+        <div class="toast-header">
+            <strong class="mr-auto text-primary">@Notification.NotificationType.ToString() Notification </strong>
+
+            <button @onclick="OnMessageAcknowledged" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="toast-body">
+
+            <strong> @Notification.Message</strong>
+
+            <div class="p-0" style="text-align: right;">
+                <button @onclick="OnMessageAcknowledged" class="btn btn-primary" style="margin-top: 10px;">Acknowledge</button>
+
+                @if (!string.IsNullOrEmpty(Notification.NavigateTo))
+                {
+                    <NavLink @onclick="@(async () =>
+                                         await InvokeAsync(
+                                             () =>
+                                             {
+                                                 OnNavigateToPage(Notification.NavigateTo);
+                                                 OnMessageAcknowledged.InvokeAsync(Notification.Id);
+                                             }
+                                             ))" class="card-link pl-2" href="javascript:void(0)">Go To Page</NavLink>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿
+@code{
+
+    string backgroundColor;
+
+    [Parameter] public RenderFragment Columns { get; set; }    
+
+    public IList<HeaderColumn> HeaderColumns { get; set; } = new List<HeaderColumn>();
+
+    [Parameter] public EventCallback OnToggleNavBar { get; set; }
+    [Parameter] public int Height { get; set; } = 0;
+    [Parameter] public string BackgroundColor
+    {
+        get => $"background-color:{backgroundColor};";
+        set
+        {
+            backgroundColor = value;
+        }
+    }
+
+    string height { get => $"height: {Height}px !important;"; }
+
+    void HandleToggleClick()
+    {
+        if (OnToggleNavBar.HasDelegate)
+            OnToggleNavBar.InvokeAsync();
+    }
+
+    internal void AddColumn(HeaderColumn col)
+    {
+        HeaderColumns.Add(col);
+
+        StateHasChanged();
+    }
+}
+
+<header class="row align-items-center" style="@height @BackgroundColor">
+    <CascadingValue Value="this">        
+        @Columns
+    </CascadingValue>
+</header>

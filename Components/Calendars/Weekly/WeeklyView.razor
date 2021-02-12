@@ -1,0 +1,42 @@
+﻿
+@code{
+    public Week Week { get; set; }
+
+    public DateTime Start { get; set; }
+
+    public DateTime End { get; set; }
+
+    public IEnumerable<Day> WeekDays { get; set; } = Enumerable.Empty<Day>();
+
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+    }
+}
+
+    <div class="Weekly-Container" id="WeekPlaceHolder">
+        <div class="card">
+            <div class="Weekly-Header-Container">
+                <h3 class="ml-2 text-white" id="WeekTitle">Week @Week.Id: @Start.ToShortDateString() thru @End.ToShortDateString()</h3>
+            </div>
+            <div class="container">
+                <div class="w3-bar">
+                    <button id="PreviousWeek" type="button" class="btn btn-outline-primary"></button>
+                    <button id="NextWeek" type="button" class="btn btn-outline-primary">></button>
+                </div>
+            </div>
+            <div id="spinner" class="container align-content-center hide">
+                <i class="fa fa-spinner w3-spin" style="font-size:64px"></i>
+            </div>
+            <div class="Weekly-Body-Container">
+                <input type="hidden" id="CurrentDate" value="@Start" />
+                @foreach (var item in WeekDays)
+                {                   
+                    <div class="Weekly-Day-Container w3-card-4" data-day="@item.DayOfMonth" data-week="@item.Id" data-year="@item.Year">
+                        <div class="Weekly-Item-Detail Item-Detail-Time">@item.Name</div>
+                        <div class="text-center">@item.ToString()</div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>

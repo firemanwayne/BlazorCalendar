@@ -1,0 +1,63 @@
+﻿
+@if (IsActive)
+{
+<div @key="ButtonId" class="tab-pane active show" id="v-pills-@ButtonId" role="tabpanel" aria-labelledby="v-pills-@ButtonId-tab">
+    @ChildContent    
+</div>
+}
+
+@code{
+    private string buttonId;
+    private bool isActive;
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [Parameter] public string ButtonId
+    {
+        get => buttonId;
+        set
+        {
+            buttonId = value;
+            InvokeAsync(() => StateHasChanged());
+        }
+    }
+
+    [Parameter] public EventCallback<MenuPage> OnSelected { get; set; }
+
+    [CascadingParameter] private VerticalMenuControl Parent { get; set; }
+
+    public bool IsActive
+    {
+        get => isActive;
+        protected set
+        {
+            isActive = value;
+
+            OnSelected.InvokeAsync(this);
+
+            InvokeAsync(() => StateHasChanged());
+        }
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        Parent.AddPage(this);
+
+        return Task.CompletedTask;
+    }
+
+    internal void Activate()
+    {
+        IsActive = true;
+
+        if (OnSelected.HasDelegate)
+            OnSelected.InvokeAsync(this);
+    }
+    internal void DeActivate()
+    {
+        IsActive = false;
+
+        if (OnSelected.HasDelegate)
+            OnSelected.InvokeAsync(this);
+    }
+}

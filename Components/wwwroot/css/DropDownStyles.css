@@ -1,0 +1,54 @@
+.CM-DepartmentLogo {
+    width: 5vw;
+    height: 5vw;
+}
+
+.CM-DropDown-Button {
+    width: 100%;
+}
+
+.CM-DropDown-Item {
+    color: #aec4cd;
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+}
+
+    .CM-DropDown-Item a {
+        text-decoration: none;
+        padding: 14px;
+        display: block;
+        padding-left: 70px !important;
+    }
+
+.CM-DropDown-Content {
+    text-decoration: none;
+    font-weight: bold;
+    width: 180px;
+    float: left;
+    margin: 0;
+    padding: 16px;
+    color: #303233;
+}
+        
+
+.hover-grey:hover{
+    background-color:#808080;
+    color:white;
+}
+
+.Content-White {
+    text-shadow: 0 0 1px ghostwhite;
+}
+
+.Content-Green {
+    text-shadow: 0 0 1px #00be27;
+}
+
+.Content-Yellow {
+    text-shadow: 0 0 1px #ffd800;
+}
+
+.Content-Red {
+    text-shadow: 0 0 1px red;
+}

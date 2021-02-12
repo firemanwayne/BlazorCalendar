@@ -1,0 +1,93 @@
+﻿@code {
+    const string unlocked = MaterialIO.lock_open;
+    const string locked = MaterialIO.locked;
+    const string backGroundColor = "#353a40";
+    const string textColor = "#aec4cd";
+    const string ArrowDown = MaterialIO.keyboard_arrow_down;
+    const string lockIconColor = "#f4f4f4";
+
+    string SidebarWidth;
+    string currentLockState = unlocked;
+    CancellationTokenSource debounceSource;
+
+    MenuItems menuItems = new MenuItems();
+    [Parameter] public int SideBarExpandedWidth { get; set; } = 0;
+    [Parameter] public int SideBarCollapsedWidth { get; set; } = 0;
+    [Parameter] public int HeaderHeight { get; set; } = 0;
+    [Inject] CustomNavInterop Interop { get; set; }
+
+    string headerHeight { get => $""; }
+
+    string sideBarExpandedWidth { get => $"width:{ SideBarExpandedWidth }px;"; }
+    string sideBarCollapsedWidth { get => $"width:{ SideBarCollapsedWidth }px;"; }
+
+    [Inject] IJSRuntime Js { get; set; }
+
+    IList<SidebarMenuItem> sideMenuItems { get; set; } = new List<SidebarMenuItem>()
+    {
+        new SidebarMenuItem { Name = "Admin", LogoName = MaterialIO.dashboard, NavItems = CalendarSidebarItems },
+        new SidebarMenuItem { Name = "Config", LogoName = MaterialIO.language, NavItems = ConfigSidebarItems },
+        new SidebarMenuItem { Name = "Calendars", LogoName = MaterialIO.shop, NavItems = AdminSidebarItems },
+    };
+    IList<MenuItem> SidebarMenuItems = new List<MenuItem>();
+    static readonly IList<SidebarMenuListItem> CalendarSidebarItems = new List<SidebarMenuListItem>()
+    {
+        new SidebarMenuListItem{ Name = "Monthly View", HrefLink = "/Calendars/Monthly" },
+        new SidebarMenuListItem{ Name = "Yearly View", HrefLink = "/Calendars/Yearly" },
+    };
+    static readonly IList<SidebarMenuListItem> ConfigSidebarItems = new List<SidebarMenuListItem>()
+    {
+        new SidebarMenuListItem{ Name = "Index", HrefLink = "/Config/Index" },
+    };
+    static readonly IList<SidebarMenuListItem> AdminSidebarItems = new List<SidebarMenuListItem>()
+    {
+        new SidebarMenuListItem{ Name = "Index", HrefLink = "/Admin/Index" },
+    };
+
+    void HandleLockClick()
+    {
+        if (currentLockState == unlocked)
+            Lock();
+        else
+            Unlock();
+    }
+    void Lock()
+    {
+        currentLockState = locked;
+        SidebarWidth = sideBarExpandedWidth;
+
+    }
+    void Unlock()
+    {
+        currentLockState = unlocked;
+    }
+    internal void AddMenuItem(MenuItem item)
+    {
+        SidebarMenuItems.Add(item);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Interop.Initialize();
+        }
+    }
+
+}
+<CascadingValue Value="this">
+    <nav id="sideNavBar" class="side-bar" style="@SidebarWidth">
+        <div>
+            <div>
+                <a class="side-bar-pin" style="text-align: right;" @onclick="HandleLockClick">
+                    <i id="lock_icon" class="material-icons" style="color: @lockIconColor">
+                        @currentLockState
+                    </i>
+                </a>
+            </div>
+            <div id="navbarwrapper" class="accordian-wrapper">
+                <MenuItems SidebarItems="sideMenuItems" BackgroundColor="@backGroundColor" />
+            </div>
+        </div>
+    </nav>
+</CascadingValue>

@@ -1,0 +1,22 @@
+﻿@code{
+
+    [Parameter]
+    public RenderFragment CardBodyTemplate { get; set; }
+
+    [Parameter]
+    public int MaxHeightPixels { get; set; } = 500;
+
+    [Parameter]
+    public string CardBodyCss { get; set; } = "card-body";
+
+    private string MaxHeight { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        MaxHeight = $"{MaxHeightPixels}px";
+    }
+}
+
+<div class="@CardBodyCss" style="overflow-y:auto;max-height:@MaxHeight;">
+    @CardBodyTemplate
+</div>

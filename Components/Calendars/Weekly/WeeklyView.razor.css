@@ -1,0 +1,44 @@
+﻿.Weekly-Container {
+    padding: 0px;
+}
+
+.Weekly-Header-Container {
+    padding: 10px 10px 10px 10px;
+    background-color: grey;
+}
+
+.Weekly-Body-Container {
+    padding: 12px;
+    display: grid !important;
+    grid-gap: 10px !important;
+    grid-template-columns: repeat(auto-fit, minmax(25ch, 1fr)) !important;
+    cursor: pointer;
+}
+
+.Weekly-Day-Container {
+    min-height: 100px;
+    min-width: 15%;
+}
+
+    .Weekly-Day-Container:hover {
+        background-color: lightgrey;
+    }
+
+.Weekly-Item-Container {
+    padding: 10px 0px 10px 0;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(25ch, 1fr)) !important;
+}
+
+.Weekly-Item-Detail {
+    padding-left: 8px;
+}
+
+.Item-Detail-Time {
+    background-color: grey;
+    color: white;
+    padding-left: 0px !important;
+    border: 1px solid grey;
+    text-align: center;
+    border-collapse: collapse;
+}

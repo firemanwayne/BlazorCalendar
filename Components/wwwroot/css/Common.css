@@ -1,0 +1,220 @@
+html, body {
+    font-family: "Roboto", sans-serif !important;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    color: #303233;
+}
+
+.hover-grey:hover {
+    background-color: darkgray;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Roboto", sans-serif !important;
+    color: #1176A3;
+}
+
+label, span, p {
+    color: #303233;
+}
+
+.bs-overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+.document-viewer {
+    overflow: auto;
+    width: 400px;
+    height: 500px;
+}
+
+.clock {
+    min-width: 50%;
+    height: 25px;
+    margin: 15px 0;
+    background: #222;
+    color: #eee;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 0 5px #222;
+    text-shadow: 0 0 0 #fff;
+    padding-top: 2px;
+}
+
+div.dz-default {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 25px;
+    font-weight: 700;
+}
+
+form.dropzone-form {
+    background-color: lightgrey;
+    min-height: 150px;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    padding: 20px 20px;
+}
+
+.dz-success-mark {
+    color: green;
+}
+
+.no-scroll-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scroll-bar {
+    -ms-overflow-style: none;
+}
+
+span.rotate-on-hover {
+    color: #1176A3;
+    cursor: pointer;
+    font-size: 25px;
+}
+
+    span.rotate-on-hover:hover {
+        -webkit-animation: rotate180 2s linear 0s 1 normal forwards; /* Safari */
+        animation: rotate180;
+    }
+
+.indicator {
+}
+
+    .indicator:hover {
+        animation-name: bounce;
+        animation-duration: 1s;
+        animation-timing-function: ease;
+        animation-delay: 0;
+        animation-fill-mode: forwards;
+    }
+
+@-webkit-keyframes bounceleft {
+    50% {
+        -webkit-transform: rotate(180deg);
+    }
+}
+
+/* Standard syntax */
+@keyframes rotate180 {
+    50% {
+        transform: rotate(180deg);
+    }
+}
+
+@-webkit-keyframes leftbounce {
+    50% {
+        -webkit-transform: rotate(180deg);
+    }
+}
+
+/* Standard syntax */
+@keyframes leftbounce {
+    50% {
+        transform: rotate(180deg);
+    }
+}
+
+.navbar-collapse {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    width: 260px;
+    height: 100%;
+}
+
+    .navbar-collapse.collapsing {
+        left: -75%;
+        transition: height 0s ease;
+    }
+
+    .navbar-collapse.show {
+        left: 0;
+        transition: left 500ms ease-in-out;
+    }
+
+.navbar-toggler.collapsed ~ .navbar-collapse {
+    transition: left 500ms ease-in-out;
+}
+
+.row {
+    margin-right: 0px;
+}
+
+table {
+    border-spacing: 2px;
+    border-color: grey;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        min-width: 1200px;
+    }
+
+    .toast-container {
+        max-width: 450px;
+    }
+}
+
+@media (min-width: 1500px) {
+    .container {
+        min-width: 1540px;
+    }
+
+    .toast-container {
+        max-width: 450px;
+    }
+}
+
+.nav-pills .nav-link.active, .nav-pills .nav-link.active:hover, .nav-pills .nav-link.active:focus {
+    background-color: #478eB8;
+    color: white;
+    margin-bottom: 8px;
+    font-size: 1.5em;
+}
+
+.nav-pills .pill-general .nav-link:not(.active) {
+    background-color: #EBEBEB;
+    margin-bottom: 8px;
+    font-size: 1.5em;
+}
+
+.nav-pills .pill-completions .nav-link:not(.active) {
+    background-color: #1FA9B4 !important;
+    margin-bottom: 8px;
+    font-size: 1.5em;
+}
+
+.nav-link {
+    margin-bottom: 8px;
+    color: grey;
+    font-size: 1.5em;
+}
+
+.btn-30 {
+    width: 30%;
+}
+
+.btn-70 {
+    width: 67%;
+}
+
+/* disables the element */
+.disabled {
+    pointer-events: none;
+    opacity:0.6;
+}

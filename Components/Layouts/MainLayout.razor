@@ -1,0 +1,20 @@
+@inherits LayoutComponentBase
+
+<HeaderBar Height="60" BackgroundColor="grey">
+
+    <Columns>
+        <HeaderColumn TextColor="white">
+            Calendar  UI
+        </HeaderColumn>
+    </Columns>
+
+</HeaderBar>
+
+<div class="row">
+
+    <JavascriptNavbar SideBarExpandedWidth="300" SideBarCollapsedWidth="85" />
+    
+    <div id="mainElement">
+        @Body
+    </div>
+</div>

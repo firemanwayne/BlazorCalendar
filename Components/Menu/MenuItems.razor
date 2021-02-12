@@ -1,0 +1,18 @@
+﻿@code {
+
+    [CascadingParameter] JavascriptNavbar ParentNavBar { get; set; }
+
+    IList<MenuItem> SidebarMenuItems = new List<MenuItem>();
+
+    [Parameter] public string BackgroundColor { get; set; }
+
+    [Parameter] public IList<SidebarMenuItem> SidebarItems { get; set; } = new List<SidebarMenuItem>();       
+}
+
+    @foreach (var n in SidebarItems)
+    {
+        <div class="card" style="background-color:@BackgroundColor">
+            <MenuItem HrefLink="@n.HrefLink" LogoName="@n.LogoName" ModuleColor="@n.ModuleColor" Name="@n.Name" NavItems="@n.NavItems" />
+        </div>
+    }
+

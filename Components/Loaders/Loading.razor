@@ -1,0 +1,34 @@
+﻿<div>
+    <div class="alert alert-secondary" role="alert">
+        <strong>@Message</strong>
+
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:70%"></div>
+        </div>
+
+    </div>
+</div>
+
+@code{
+    [Parameter] public string Message { get; set; } = "Loading";
+
+    [Inject] public TimerService Timer { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        StartTimer(30000);
+        return base.OnInitializedAsync();
+    }
+
+    void StartTimer(double interval)
+    {
+        Timer = new TimerService();
+        Timer.SetTimer(interval);
+        Timer.OnElapsed += TimerElapsedHandler;
+    }
+
+    void TimerElapsedHandler()
+    {
+        Message = "Loading -> Something may have gone wrong, try again.";
+    }
+}

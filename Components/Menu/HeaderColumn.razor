@@ -1,0 +1,25 @@
+﻿@code {
+
+    string textColor;
+
+    [Parameter] public string TextColor
+    {
+        get => $"color:{textColor};";
+        set { textColor = value; }
+    }    
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [CascadingParameter] HeaderBar Header { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Header.AddColumn(this);
+        StateHasChanged();
+    }
+}
+<div class="col-4">
+    <span class="pl-2" style="@TextColor">
+        @ChildContent
+    </span>
+</div>
