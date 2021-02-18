@@ -43,7 +43,7 @@ namespace Components.Toast
         {
             if (e.Notification != null || !string.IsNullOrEmpty(e.Notification.UserId))
             {
-                var UserId = CurrentUser.FindFirstValue(ClaimTypes.NameIdentifier);
+                var UserId = CurrentUser.FindFirst(ClaimTypes.NameIdentifier);
 
                 if (!string.IsNullOrEmpty(e.Notification.UserId) && e.Notification.UserId.Equals(UserId))
                     await StateChanged();
