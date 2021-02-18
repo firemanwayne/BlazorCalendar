@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Components.DatesAndTimes
 {
@@ -206,5 +208,8 @@ namespace Components.DatesAndTimes
                 new December(Year)
             };   
         }
+
+        public static MonthBase ThisMonth(this DateTime d)
+            => MonthList(d.Year).FirstOrDefault(a => a.Number.Equals(d.Month));
     }
 }

@@ -4,18 +4,10 @@
 
     public MonthBase CurrentMonth { get; set; }
 
-    public ElementReference MessagePlaceHolder { get; set; }
+    IList<string> WeekDayLabels = new List<string>();
+    IList<MonthlyDate> WeekDays = new List<MonthlyDate>();    
 
-    IList<MonthlyDate> Mondays { get; set; } = new List<MonthlyDate>();
-    IList<MonthlyDate> Tuesdays { get; set; } = new List<MonthlyDate>();
-    IList<MonthlyDate> Wednesdays { get; set; } = new List<MonthlyDate>();
-    IList<MonthlyDate> Thursdays { get; set; } = new List<MonthlyDate>();
-    IList<MonthlyDate> Fridays { get; set; } = new List<MonthlyDate>();
-    IList<MonthlyDate> Saturdays { get; set; } = new List<MonthlyDate>();
-    IList<MonthlyDate> Sundays { get; set; } = new List<MonthlyDate>();
-
-
-    public void NextMonth()
+    void NextMonth()
     {
         var Id = CurrentMonth.Number;
         var Year = CurrentMonth.Year;
@@ -24,7 +16,7 @@
 
         StateHasChanged();
     }
-    public void PreviousMonth()
+    void PreviousMonth()
     {
         var Id = CurrentMonth.Number;
         var Year = CurrentMonth.Year;
@@ -37,122 +29,75 @@
     protected override Task OnParametersSetAsync()
     {
         Today = DateTime.Today;
+        
+        CurrentMonth = Today.ThisMonth();
 
-        var months = Months.MonthList(Today.Year)
+        WeekDayLabels = CurrentMonth
+            .Weeks
+            .FirstOrDefault()
+            .WeekDays
+            .Select(a => a.Name)
             .ToList();
-
-        CurrentMonth = months.FirstOrDefault(a => a.Number.Equals(Today.Month));
 
         return Task.CompletedTask;
     }
 
     public void HandleDateSelected(bool Selected)
-    {
+    { }
 
+    internal void AddDay(MonthlyDate Day)
+    {
+        WeekDays.Add(Day);
     }
 }
 
 @if (CurrentMonth != null)
 {
-    <div class="container-fluid">
+<div class="pt-5 container-fluid">
+    <CascadingValue Value="this">
+        
+        <div class="container-fluid">
+            <div class="row">                
 
-        <div class="container">
-            <div class="container">
-                <span>@CurrentMonth.Name</span>
-                <span>@CurrentMonth.Year.Number</span>
-            </div>
-            <input value="@CurrentMonth.Number" type="hidden" />
-            <input value="@CurrentMonth.Year.Number" type="hidden" />
-        </div>
-        <div class="container col-4">
-            <div class="container">
-                <div class="btn-group">
-                    <button @onclick="PreviousMonth" class="btn btn-outline-primary">Previous Month</button>
-                    <button @onclick="NextMonth" class="btn btn-outline-primary">Next Month</button>
-                </div>
-                <div @ref="MessagePlaceHolder"></div>
-            </div>
-        </div>
+                <div class="col-sm p-0 text-center">
+                    <span @onclick="PreviousMonth" class="material-icons m-0">
+                        arrow_back
+                    </span>
 
-        <CascadingValue Value="this">
-            <div class="container">
-                <div class="card-header text-center">
-                    <div class="row">
-                        <span class="col-sm">Sunday</span>
-                        <span class="col-sm">Monday</span>
-                        <span class="col-sm">Tuesday</span>
-                        <span class="col-sm">Wednesday</span>
-                        <span class="col-sm">Thursday</span>
-                        <span class="col-sm">Friday</span>
-                        <span class="col-sm">Saturday</span>
-                    </div>
+                    <span>
+                        <span>@CurrentMonth.Name @CurrentMonth.Year.Number</span>
+                    </span>
+
+                    <span @onclick="NextMonth" class="material-icons m-0">
+                        arrow_forward
+                    </span>
+
                 </div>
-                @foreach (var item in CurrentMonth.Weeks)
+
+            </div>
+            <div class="card-deck text-center">
+                @foreach (var d in WeekDayLabels)
                 {
-                    <div class="card-deck text-center">
-                        @foreach (var day in item.WeekDays)
-                        {
-                            if (day.DayOfWeek.Equals(DayOfWeek.Sunday))
-                            {
-                                <MonthlyDate CurrentDay="day">
-                                    <ModalContent>
-                                        <DailyView CurrentDay="day"/>
-                                    </ModalContent>
-                                </MonthlyDate>
-                            }
-                            if (day.DayOfWeek.Equals(DayOfWeek.Monday))
-                            {
-                                <MonthlyDate CurrentDay="day">
-                                    <ModalContent>
-                                        <DailyView CurrentDay="day" />
-                                    </ModalContent>
-                                </MonthlyDate>
-                            }
-                            if (day.DayOfWeek.Equals(DayOfWeek.Tuesday))
-                            {
-                                <MonthlyDate CurrentDay="day">
-                                    <ModalContent>
-                                        <DailyView CurrentDay="day" />
-                                    </ModalContent>
-                                </MonthlyDate>
-                            }
-                            if (day.DayOfWeek.Equals(DayOfWeek.Wednesday))
-                            {
-                                <MonthlyDate CurrentDay="day">
-                                    <ModalContent>
-                                        <DailyView CurrentDay="day" />
-                                    </ModalContent>
-                                </MonthlyDate>
-                            }
-                            if (day.DayOfWeek.Equals(DayOfWeek.Thursday))
-                            {
-                                <MonthlyDate CurrentDay="day">
-                                    <ModalContent>
-                                        <DailyView CurrentDay="day" />
-                                    </ModalContent>
-                                </MonthlyDate>
-                            }
-                            if (day.DayOfWeek.Equals(DayOfWeek.Friday))
-                            {
-                                <MonthlyDate CurrentDay="day">
-                                    <ModalContent>
-                                        <DailyView CurrentDay="day" />
-                                    </ModalContent>
-                                </MonthlyDate>
-                            }
-                            if (day.DayOfWeek.Equals(DayOfWeek.Saturday))
-                            {
-                                <MonthlyDate CurrentDay="day">
-                                    <ModalContent>
-                                        <DailyView CurrentDay="day" />
-                                    </ModalContent>                                                                 
-                                </MonthlyDate>
-                            }
-                        }
-                    </div>
-                }
-
+                    <div class="rounded-0 card m-0 py-2" style="background-color:lightgrey">@d</div>
+                }                
             </div>
-        </CascadingValue>
-    </div>
+            @foreach (var item in CurrentMonth.Weeks)
+            {
+                <div class="card-deck text-center">
+
+                    @foreach(var d in item.WeekDays)
+                    {
+                        <MonthlyDate CurrentDay="d">
+                            <ModalContent>
+                                <DailyView CurrentDay="d"/>
+                            </ModalContent>
+                        </MonthlyDate>
+                    }                   
+
+                </div>
+            }
+
+        </div>
+    </CascadingValue>
+</div>
 }

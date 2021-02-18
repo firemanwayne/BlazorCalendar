@@ -2,39 +2,36 @@
 
     [CascadingParameter] MonthlyView Parent { get; set; }
 
-    bool IsToday { get; set; }
-
-    Day Today { get; set; } = new Day(DateTime.Today);
-
-    public string DayOfTheWeek { get; set; }
-
-    public DayOfWeek DayOfWeekNumber { get; set; }
-
     [Parameter] public Day CurrentDay { get; set; }
-
     [Parameter] public RenderFragment ModalContent { get; set; }
 
-    public string TodayCss { get; set; }
+    string TodayCss { get; set; }
+    string DayOfTheWeek { get; set; }
+    DayOfWeek DayOfWeekNumber { get; set; }
 
+    bool IsToday { get; set; }
     bool SameMonth { get; set; }
-
     string CardCss { get; set; }
     string CardContents { get; set; }
     bool Selected { get; set; }
-
     EmptyModal Modal = new EmptyModal();
+
+    Day Today { get; set; } = new Day(DateTime.Today);
 
     public void DateSelected()
     {
-        if (Selected)
-            Selected = false;
-        else
-            Selected = true;
+        if (SameMonth)
+        {
+            if (Selected)
+                Selected = false;
+            else
+                Selected = true;
 
-        if (Selected)
-            Modal.OpenModal();
-        else
-            Modal.CloseModal();
+            if (Selected)
+                Modal.OpenModal();
+            else
+                Modal.CloseModal();
+        }
     }
 
     protected override Task OnParametersSetAsync()
@@ -47,29 +44,38 @@
         SameMonth = CurrentDay.Month.Equals(Parent.CurrentMonth.Number);
 
         CardCss = IsToday ? "rounded-0 card m-0 bg-danger" : !SameMonth ? "rounded-0 card m-0 bg-transparent" : "rounded-0 card m-0 bg-secondary";
-        CardContents = IsToday ? $"TODAY {Parent.CurrentMonth.Name}" : !SameMonth ? "" : $"Empty";
+        CardContents = SameMonth ? $"Empty" : "";
+
+        Parent.AddDay(this);
+
         return Task.CompletedTask;
     }
 }
 
+
 <div class="@CardCss" @onclick="DateSelected">
-    <div class="card-header text-right p-0" title="@CurrentDay.ToString()">
-        <a href="javascript:void(0)" class="card-link text-right text-white p-2">@CurrentDay.DayOfMonth</a>
-    </div>
-    <div class="card-body">
-        <div class="card-text">
-            @CardContents
+    @if (SameMonth)
+    {
+        <div class="card-header text-right p-0" title="@CurrentDay.ToString()">
+
+            <a href="javascript:void(0)" class="card-link text-right text-white p-2">@CurrentDay.DayOfMonth</a>
+
         </div>
-    </div>
+        <div class="card-body">
+            <div class="card-text">
+                @CardContents
+            </div>
+        </div>
+    }
 </div>
 
-@if (ModalContent != null)
+@if (ModalContent != null && SameMonth)
 {
-<EmptyModal @ref="Modal" Title="@(() => CurrentDay.ToString())" ModalTitle="@CurrentDay.ToString()">
+    <EmptyModal @ref="Modal" Title="@(() => CurrentDay.ToString())" ModalTitle="@CurrentDay.ToString()">
 
-    <ComponentContent>
-        @ModalContent
-    </ComponentContent>    
+        <ComponentContent>
+            @ModalContent
+        </ComponentContent>
 
-</EmptyModal>
+    </EmptyModal>
 }

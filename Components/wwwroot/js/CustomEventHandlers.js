@@ -4,8 +4,8 @@ export function customMouseEvents() {
     const locked = 'lock';
     const _300Pixels = 'width:300px';
     const _85Pixels = 'width:85xp';
-    const _margin300Pixels = 'margin-left:300px;';
-    const _margin85Pixels = 'margin-left:105xp;';
+    const _margin325Pixels = 'margin-left:325px;margin-right:25px;';
+    const _margin85Pixels = 'margin-left:105xp;margin-right:25px;';
 
     var sidebar = document.getElementById('sideNavBar');
     var lockIcon = document.getElementById('lock_icon');
@@ -62,7 +62,7 @@ export function customMouseEvents() {
 
         }
         else {
-            mainElement.style = _margin300Pixels;
+            mainElement.style = _margin325Pixels;
         }
     }    
 }

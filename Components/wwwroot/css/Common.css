@@ -151,10 +151,6 @@ span.rotate-on-hover {
     transition: left 500ms ease-in-out;
 }
 
-.row {
-    margin-right: 0px;
-}
-
 table {
     border-spacing: 2px;
     border-color: grey;

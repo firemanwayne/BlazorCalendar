@@ -1,0 +1,184 @@
+﻿@code{
+
+    [Parameter] public DateTime Today { get; set; } = new DateTime();
+
+    public MonthBase CurrentMonth { get; set; }
+
+    IList<MonthlyDate> Mondays { get; set; } = new List<MonthlyDate>();
+    IList<MonthlyDate> Tuesdays { get; set; } = new List<MonthlyDate>();
+    IList<MonthlyDate> Wednesdays { get; set; } = new List<MonthlyDate>();
+    IList<MonthlyDate> Thursdays { get; set; } = new List<MonthlyDate>();
+    IList<MonthlyDate> Fridays { get; set; } = new List<MonthlyDate>();
+    IList<MonthlyDate> Saturdays { get; set; } = new List<MonthlyDate>();
+    IList<MonthlyDate> Sundays { get; set; } = new List<MonthlyDate>();
+
+
+    public void NextMonth()
+    {
+        var Id = CurrentMonth.Number;
+        var Year = CurrentMonth.Year;
+
+        CurrentMonth = CurrentMonth.NextMonth();
+
+        StateHasChanged();
+    }
+    public void PreviousMonth()
+    {
+        var Id = CurrentMonth.Number;
+        var Year = CurrentMonth.Year;
+
+        CurrentMonth = CurrentMonth.PreviousMonth();
+
+        StateHasChanged();
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        Today = DateTime.Today;
+
+        var months = Months.MonthList(Today.Year)
+            .ToList();
+
+        CurrentMonth = months.FirstOrDefault(a => a.Number.Equals(Today.Month));
+
+        return Task.CompletedTask;
+    }
+
+    public void HandleDateSelected(bool Selected)
+    { }
+
+    internal void AddDay(MonthlyDate Day)
+    {
+        switch (Day.CurrentDay.DayOfWeek)
+        {
+            case DayOfWeek.Sunday:
+                Sundays.Add(Day);
+                break;
+
+            case DayOfWeek.Monday:
+                Mondays.Add(Day);
+                break;
+
+            case DayOfWeek.Tuesday:
+                Tuesdays.Add(Day);
+                break;
+
+            case DayOfWeek.Wednesday:
+                Wednesdays.Add(Day);
+                break;
+
+            case DayOfWeek.Thursday:
+                Thursdays.Add(Day);
+                break;
+
+            case DayOfWeek.Friday:
+                Fridays.Add(Day);
+                break;
+
+            case DayOfWeek.Saturday:
+                Saturdays.Add(Day);
+                break;
+
+            default: break;
+        }
+    }
+}
+
+@if (CurrentMonth != null)
+{
+    <div class="pt-5 container-fluid">
+        <CascadingValue Value="this">
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm p-0">
+                        <div class="btn-group">
+                            <button @onclick="PreviousMonth" class="btn btn-outline-primary">Previous Month</button>
+                            <button @onclick="NextMonth" class="btn btn-outline-primary">Next Month</button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm p-0">
+                        <h3>@CurrentMonth.Name @CurrentMonth.Year.Number</h3>
+                    </div>
+
+                </div>
+                <div class="card-deck text-center">
+                    <div class="rounded-0 card m-0 py-2" style="background-color:lightgrey">Sunday</div>
+                    <div class="rounded-0 card m-0 py-2" style="background-color:lightgrey">Monday</div>
+                    <div class="rounded-0 card m-0 py-2" style="background-color:lightgrey">Tuesday</div>
+                    <div class="rounded-0 card m-0 py-2" style="background-color:lightgrey">Wednesday</div>
+                    <div class="rounded-0 card m-0 py-2" style="background-color:lightgrey">Thursday</div>
+                    <div class="rounded-0 card m-0 py-2" style="background-color:lightgrey">Friday</div>
+                    <div class="rounded-0 card m-0 py-2" style="background-color:lightgrey">Saturday</div>
+                </div>
+                @foreach (var item in CurrentMonth.Weeks)
+                {
+                    <div class="card-deck text-center">
+                        @foreach (var day in item.WeekDays)
+                        {
+                            if (day.DayOfWeek.Equals(DayOfWeek.Sunday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day" />
+                                    </ModalContent>
+                                </MonthlyDate>
+                            }
+                            if (day.DayOfWeek.Equals(DayOfWeek.Monday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day" />
+                                    </ModalContent>
+                                </MonthlyDate>
+                            }
+                            if (day.DayOfWeek.Equals(DayOfWeek.Tuesday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day" />
+                                    </ModalContent>
+                                </MonthlyDate>
+                            }
+                            if (day.DayOfWeek.Equals(DayOfWeek.Wednesday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day" />
+                                    </ModalContent>
+                                </MonthlyDate>
+                            }
+                            if (day.DayOfWeek.Equals(DayOfWeek.Thursday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day" />
+                                    </ModalContent>
+                                </MonthlyDate>
+                            }
+                            if (day.DayOfWeek.Equals(DayOfWeek.Friday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day" />
+                                    </ModalContent>
+                                </MonthlyDate>
+                            }
+                            if (day.DayOfWeek.Equals(DayOfWeek.Saturday))
+                            {
+                                <MonthlyDate CurrentDay="day">
+                                    <ModalContent>
+                                        <DailyView CurrentDay="day" />
+                                    </ModalContent>
+                                </MonthlyDate>
+                            }
+                        }
+                    </div>
+                }
+
+            </div>
+        </CascadingValue>
+    </div>
+}
