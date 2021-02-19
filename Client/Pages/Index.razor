@@ -1,0 +1,29 @@
+﻿@page "/"
+@attribute [Authorize]
+
+@code{
+
+    [Inject] HttpClient Client { get; set; }
+
+    IEnumerable<ScheduledEvents> Events { get; set; } = new List<ScheduledEvents>();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        try
+        {
+            var scheduledEvents = await Client.GetFromJsonAsync<ScheduledEvents[]>(nameof(ScheduledEvents));
+
+            if (scheduledEvents != null)
+            {
+                Events = scheduledEvents
+                    .ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
+
+<MonthlyView Today="DateTime.Now" Events="Events" />

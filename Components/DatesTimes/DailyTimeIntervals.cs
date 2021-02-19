@@ -139,7 +139,6 @@ namespace Components.DatesAndTimes
             DailyTimeIntervals TimeIntervalObject = GetDailyTimeIntervalFromId(TimeId);
             return new DateTime(Date.Year, Date.Month, Date.Day, TimeIntervalObject.Hour, TimeIntervalObject.Minutes, 0);
         }
-
         private static readonly List<DailyTimeIntervals> QuarterTimes = new List<DailyTimeIntervals>()
         {
             //00:00

@@ -6,7 +6,9 @@
     {
         get => $"color:{textColor};";
         set { textColor = value; }
-    }    
+    }
+
+    [Parameter] public string ClassCss { get; set; }
 
     [Parameter] public RenderFragment ChildContent { get; set; }
 
@@ -18,8 +20,8 @@
         StateHasChanged();
     }
 }
-<div class="col-4">
-    <span class="pl-2" style="@TextColor">
+<div class="col-sm">
+    <div class="container-fluid @ClassCss" style="@TextColor">
         @ChildContent
-    </span>
+    </div>
 </div>

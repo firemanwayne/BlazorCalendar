@@ -1,10 +1,16 @@
 @inherits LayoutComponentBase
 
+@attribute [Authorize] 
+
 <HeaderBar Height="60" BackgroundColor="grey">
 
     <Columns>
         <HeaderColumn TextColor="white">
             Calendar  UI
+        </HeaderColumn>
+
+        <HeaderColumn TextColor="white" ClassCss="text-right">
+            <LoginDisplay />
         </HeaderColumn>
     </Columns>
 
@@ -13,8 +19,8 @@
 <div class="row">
 
     <JavascriptNavbar SideBarExpandedWidth="300" SideBarCollapsedWidth="85" />
-    
+
     <div id="mainElement">
         @Body
     </div>
-</div>
+</div>     

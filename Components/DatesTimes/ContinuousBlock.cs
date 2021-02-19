@@ -2,7 +2,7 @@
 
 namespace Components.DatesAndTimes
 {
-    public class ContinuousBlock : TimeBlock
+    public class ContinuousBlock : TimeBlockBase
     {
         public TimeSegment Segment { get; }
 

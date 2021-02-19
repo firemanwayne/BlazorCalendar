@@ -3,20 +3,20 @@ using System.Collections.Generic;
 
 namespace Components.DatesAndTimes
 {
-    public class SegmentedBlock : TimeBlock
+    public class SegmentedBlock : TimeBlockBase
     {
-        private const int FifteenMinutes = 15;
-        private const int HalfHour = 30;
-        private const int HoursInDay = 24;
-        private const int MinutesInHour = 60;
-        private readonly static int MinutesInDay = MinutesInDay * HoursInDay;
+        const int FifteenMinutes = 15;
+        const int HalfHour = 30;
+        const int HoursInDay = 24;
+        const int MinutesInHour = 60;
+        readonly static int MinutesInDay = MinutesInDay * HoursInDay;
 
         public SegmentedBlock(TimeIncrements Increment, int StartId, int StopId, DateTime Start, DateTime Stop) : base(Increment, Start, Stop, StartId, StopId)
         {
             CreateSegments();
         }
 
-        private void CreateSegments()
+        void CreateSegments()
         {
             switch (TimeIncrement)
             {
@@ -40,7 +40,7 @@ namespace Components.DatesAndTimes
                     break;
             }
         }
-        private void CreateDailySegments()
+        void CreateDailySegments()
         {
             int DayCounter = 0;
             int TotalDays = Duration.Days;
@@ -62,7 +62,7 @@ namespace Components.DatesAndTimes
                 DayCounter++;
             }
         }
-        private void CreateHourlySegments()
+        void CreateHourlySegments()
         {
             int HourCounter = 0;
             int TotalHours = Duration.Hours;
@@ -83,7 +83,7 @@ namespace Components.DatesAndTimes
                 HourCounter++;
             }
         }
-        private void CreateHalfHourSegments()
+        void CreateHalfHourSegments()
         {
             int HourCounter = 0;
             int TotalHalfHours = Duration.Hours * 2;
@@ -105,7 +105,7 @@ namespace Components.DatesAndTimes
                 HourCounter++;
             }
         }
-        private void CreateQuarterHourSegments()
+        void CreateQuarterHourSegments()
         {
             int QuarterCounter = 0;
             int TotalQuarterHours = Duration.Hours * 4;
@@ -127,13 +127,13 @@ namespace Components.DatesAndTimes
                 QuarterCounter++;
             }
         }
-        private void CreateDefaultSegments()
+        void CreateDefaultSegments()
         {
             Segments.Add(new TimeSegment(Start, Stop));
         }
 
-        private int StartIntervalId { get; set; }
-        private int EndIntervalId { get; set; }
+        int StartIntervalId { get; set; }
+        int EndIntervalId { get; set; }
 
         public IList<TimeSegment> Segments { get; } = new List<TimeSegment>();
     }

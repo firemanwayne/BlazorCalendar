@@ -15,7 +15,7 @@ namespace Components.DatesAndTimes
 
         public IEnumerable<KeyValuePair<int, string>> Types { get; }
 
-        private readonly IList<LifeCycleType> types = new List<LifeCycleType>
+        readonly IList<LifeCycleType> types = new List<LifeCycleType>
         {
             new LifeCycleType(0, "Years"),
             new LifeCycleType(1, "Months"),

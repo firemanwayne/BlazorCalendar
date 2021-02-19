@@ -2,6 +2,7 @@
 
     [CascadingParameter] MonthlyView Parent { get; set; }
 
+    [Parameter] public IEnumerable<IEvent> Events { get; set; }
     [Parameter] public Day CurrentDay { get; set; }
     [Parameter] public RenderFragment ModalContent { get; set; }
 
@@ -12,7 +13,6 @@
     bool IsToday { get; set; }
     bool SameMonth { get; set; }
     string CardCss { get; set; }
-    string CardContents { get; set; }
     bool Selected { get; set; }
     EmptyModal Modal = new EmptyModal();
 
@@ -43,8 +43,7 @@
 
         SameMonth = CurrentDay.Month.Equals(Parent.CurrentMonth.Number);
 
-        CardCss = IsToday ? "rounded-0 card m-0 bg-danger" : !SameMonth ? "rounded-0 card m-0 bg-transparent" : "rounded-0 card m-0 bg-secondary";
-        CardContents = SameMonth ? $"Empty" : "";
+        CardCss = IsToday ? "rounded-0 card m-0 bg-danger" : !SameMonth ? "rounded-0 card m-0 bg-transparent" : "rounded-0 card m-0 bg-secondary";        
 
         Parent.AddDay(this);
 
@@ -54,6 +53,7 @@
 
 
 <div class="@CardCss" @onclick="DateSelected">
+
     @if (SameMonth)
     {
         <div class="card-header text-right p-0" title="@CurrentDay.ToString()">
@@ -61,16 +61,27 @@
             <a href="javascript:void(0)" class="card-link text-right text-white p-2">@CurrentDay.DayOfMonth</a>
 
         </div>
-        <div class="card-body">
+        <div class="card-body px-0">
             <div class="card-text">
-                @CardContents
+                @if (Events != null)
+                {
+                    <ul style="list-style:circle">
+                        @foreach (var item in Events.Where(a => a.Start.Year.Equals(CurrentDay.Year) && a.Start.Month.Equals(CurrentDay.Month) && a.Start.Day.Equals(CurrentDay.DayOfMonth)).ToList())
+                        {
+                            <li class="text-left" title="@item.Description">
+                                @item.Name
+                            </li>
+                        }
+                    </ul>
+                }
             </div>
         </div>
     }
+
 </div>
 
 @if (ModalContent != null && SameMonth)
-{
+{    
     <EmptyModal @ref="Modal" Title="@(() => CurrentDay.ToString())" ModalTitle="@CurrentDay.ToString()">
 
         <ComponentContent>

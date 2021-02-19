@@ -1,5 +1,7 @@
 ﻿@code{
-        [Parameter] public Day CurrentDay { get; set; }
+    [Parameter] public IEvent Event { get; set; }
+
+    [Parameter] public Day CurrentDay { get; set; }
 
     public DailyTimeIntervals DailyIntervals { get; set; }
 

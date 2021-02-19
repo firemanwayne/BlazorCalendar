@@ -1,0 +1,25 @@
+﻿
+@inject NavigationManager Navigation
+@inject SignOutSessionStateManager SignOutManager
+
+<AuthorizeView>
+    <Authorized>
+        <a style="color:inherit" href="authentication/profile">Hello, @context.User.Identity.Name!</a>
+        <span style="color:inherit" class="px-4">  |  </span>
+        <a style="color:inherit" href="javascript:void(0)" @onclick="BeginSignOut">Log out</a>
+    </Authorized>
+    <NotAuthorized>
+        <a style="color:inherit" href="authentication/register">Register</a>
+        <span style="color:inherit" class="px-4">  |  </span>
+        <a style="color:inherit" href="authentication/login">Log in</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code{
+    private async Task BeginSignOut(MouseEventArgs args)
+    {
+        await SignOutManager.SetSignOutState();
+
+        Navigation.NavigateTo("authentication/logout");
+    }
+}

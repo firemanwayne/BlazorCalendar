@@ -57,7 +57,7 @@ namespace Components.DatesAndTimes
             return new TimeTypes(Increment, Start, Stop, StartId, StopId);
         }
 
-        public TimeBlock GetTimeBlock() => Block;
+        public TimeBlockBase GetTimeBlock() => Block;
 
         public static IList<TimeTypes> Types { get; } = new List<TimeTypes>
         {
@@ -69,7 +69,7 @@ namespace Components.DatesAndTimes
         public string Name { get; init; }
         public int NumberBlocks { get; init; }
 
-        private TimeBlock Block { get; set; }
+        private TimeBlockBase Block { get; set; }
         private enum TimeTypeEnum { Continuous, Segmented }
     }
 

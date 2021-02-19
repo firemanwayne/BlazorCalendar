@@ -1,11 +1,12 @@
 ﻿@code{
 
     [Parameter] public DateTime Today { get; set; } = new DateTime();
+    [Parameter] public IEnumerable<IEvent> Events { get; set; } = new List<IEvent>();
 
     public MonthBase CurrentMonth { get; set; }
 
     IList<string> WeekDayLabels = new List<string>();
-    IList<MonthlyDate> WeekDays = new List<MonthlyDate>();    
+    IList<MonthlyDate> WeekDays = new List<MonthlyDate>();
 
     void NextMonth()
     {
@@ -29,7 +30,7 @@
     protected override Task OnParametersSetAsync()
     {
         Today = DateTime.Today;
-        
+
         CurrentMonth = Today.ThisMonth();
 
         WeekDayLabels = CurrentMonth
@@ -87,7 +88,7 @@
 
                     @foreach(var d in item.WeekDays)
                     {
-                        <MonthlyDate CurrentDay="d">
+                        <MonthlyDate CurrentDay="d" Events="Events">
                             <ModalContent>
                                 <DailyView CurrentDay="d"/>
                             </ModalContent>
