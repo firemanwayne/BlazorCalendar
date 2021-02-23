@@ -29,5 +29,21 @@ namespace Components.DatesAndTimes
             var CST = "Central Standard Time";
             return TimeZoneInfo.ConvertTime(Date, TimeZoneInfo.FindSystemTimeZoneById(CST));
         }
+
+        public static DateTime RoundToHour(this DateTime d)
+        {
+            if (d.Minute >= 1 || d.Minute <= 29)
+                return new DateTime(d.Year, d.Month, d.Day, d.Hour, 0, 0);
+            else
+                return new DateTime(d.Year, d.Month, d.Day, d.Hour + 1, 0, 0);
+        }
+
+        public static DateTime RoundToHalfHour(this DateTime d)
+        {
+            if (d.Minute >= 1 || d.Minute <= 14)
+                return new DateTime(d.Year, d.Month, d.Day, d.Hour, 0, 0);
+            else
+                return new DateTime(d.Year, d.Month, d.Day, d.Hour, 30, 0);
+        }
     }
 }

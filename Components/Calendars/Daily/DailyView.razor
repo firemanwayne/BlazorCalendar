@@ -1,5 +1,7 @@
 ﻿@code{
-    [Parameter] public IEvent Event { get; set; }
+    IEnumerable<IEvent> events = new List<IEvent>();
+
+    [Parameter] public IEnumerable<IEvent> Events { get; set; }
 
     [Parameter] public Day CurrentDay { get; set; }
 
@@ -9,6 +11,11 @@
 
     protected override Task OnParametersSetAsync()
     {
+        if (Events != null && Events.Count() > 0)
+            events = Events
+                .Where(a => a.Start.Day.Equals(CurrentDay.DayOfMonth) && a.Start.Month.Equals(CurrentDay.Month) && a.Start.Year.Equals(CurrentDay.Year))
+                .ToList();
+
         return Task.CompletedTask;
     }
 
@@ -26,11 +33,25 @@
         <ul class="list-group">
             @foreach (var item in TimeIntervals)
             {
-                <li class="list-group-item">
-                    <a href="javascript:void(0)" class="text-center">
-                        <div>@item.TotalTimeSpan</div>
-                    </a>
-                </li>
+                @if (events != null && events.Where(a => a.Start.TimeOfDay.Equals(item.TotalTimeSpan)).Count() > 0)
+                {
+                    @foreach (var e in events)
+                    {
+                        <li class="list-group-item bg-success">
+                            <a href="javascript:void(0)" class="text-left">
+                                <div>@item.TotalTimeSpan: @e.Name </div>
+                            </a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item">
+                        <a href="javascript:void(0)" class="text-left">
+                            <div>@item.TotalTimeSpan: OPEN </div>
+                        </a>
+                    </li>
+                }
             }
         </ul>
     </div>

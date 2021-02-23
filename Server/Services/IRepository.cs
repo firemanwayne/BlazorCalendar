@@ -1,4 +1,4 @@
-﻿using Data.Abstract;
+﻿using Calendar.Shared.Abstract;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;

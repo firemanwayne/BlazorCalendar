@@ -1,4 +1,5 @@
-﻿using Data.Models;
+﻿using Calendar.Shared.Models;
+using Components.DatesAndTimes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -57,10 +58,10 @@ namespace Calendar.Server
     {
         public static IEnumerable<ScheduledEvents> EventData = new List<ScheduledEvents>()
         {
-            new ScheduledEvents(){ Name = "Event 1", Description = "Test Event 1", Start = DateTime.UtcNow.AddDays(2), End = DateTime.UtcNow.AddDays(2).AddHours(6) },
-            new ScheduledEvents(){ Name = "Event 2", Description = "Test Event 2", Start = DateTime.UtcNow.AddDays(4), End = DateTime.UtcNow.AddDays(4).AddHours(6) },
-            new ScheduledEvents(){ Name = "Event 3", Description = "Test Event 3", Start = DateTime.UtcNow.AddDays(5), End = DateTime.UtcNow.AddDays(5).AddHours(6) },
-            new ScheduledEvents(){ Name = "Event 4", Description = "Test Event 4", Start = DateTime.UtcNow.AddDays(8), End = DateTime.UtcNow.AddDays(8).AddHours(6) }
+            new ScheduledEvents(){ Name = "Event 1", Description = "Test Event 1", Start = DateTime.UtcNow.AddDays(2).RoundToHour(), End = DateTime.UtcNow.AddDays(2).AddHours(6) },
+            new ScheduledEvents(){ Name = "Event 2", Description = "Test Event 2", Start = DateTime.UtcNow.AddDays(4).RoundToHour(), End = DateTime.UtcNow.AddDays(4).AddHours(6) },
+            new ScheduledEvents(){ Name = "Event 3", Description = "Test Event 3", Start = DateTime.UtcNow.AddDays(5).RoundToHour(), End = DateTime.UtcNow.AddDays(5).AddHours(6) },
+            new ScheduledEvents(){ Name = "Event 4", Description = "Test Event 4", Start = DateTime.UtcNow.AddDays(8).RoundToHour(), End = DateTime.UtcNow.AddDays(8).AddHours(6) }
         };
     }
 }

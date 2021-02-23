@@ -1,10 +1,10 @@
-﻿using Components.DatesTimes;
-using Data.Abstract;
+﻿using Calendar.Shared.Abstract;
+using Components.DatesTimes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Data.Models
+namespace Calendar.Shared.Models
 {
     [Table(nameof(ScheduledEvents))]
     public class ScheduledEvents : DataModelBase, IEvent

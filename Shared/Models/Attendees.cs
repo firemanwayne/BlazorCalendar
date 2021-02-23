@@ -1,8 +1,8 @@
-﻿using Components.DatesTimes;
-using Data.Abstract;
+﻿using Calendar.Shared.Abstract;
+using Components.DatesTimes;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Data.Models
+namespace Calendar.Shared.Models
 {
     [Table(nameof(Attendees))]
     public class Attendees : DataModelBase, IAttendee

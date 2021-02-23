@@ -1,4 +1,4 @@
-using Data.Models;
+using Calendar.Shared.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

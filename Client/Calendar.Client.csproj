@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Components\Components.csproj" />
-    <ProjectReference Include="..\Data\Data.csproj" />
     <ProjectReference Include="..\Shared\Calendar.Shared.csproj" />
   </ItemGroup>
 

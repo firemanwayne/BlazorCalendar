@@ -15,6 +15,7 @@
     string CardCss { get; set; }
     bool Selected { get; set; }
     EmptyModal Modal = new EmptyModal();
+    IEnumerable<IEvent> DailyEvents = new List<IEvent>();
 
     Day Today { get; set; } = new Day(DateTime.Today);
 
@@ -43,9 +44,13 @@
 
         SameMonth = CurrentDay.Month.Equals(Parent.CurrentMonth.Number);
 
-        CardCss = IsToday ? "rounded-0 card m-0 bg-danger" : !SameMonth ? "rounded-0 card m-0 bg-transparent" : "rounded-0 card m-0 bg-secondary";        
+        CardCss = IsToday ? "rounded-0 card m-0 bg-danger" : !SameMonth ? "rounded-0 card m-0 bg-transparent" : "rounded-0 card m-0 bg-secondary";
 
         Parent.AddDay(this);
+
+        DailyEvents = Events
+            .Where(a => a.Start.Year.Equals(CurrentDay.Year) && a.Start.Month.Equals(CurrentDay.Month) && a.Start.Day.Equals(CurrentDay.DayOfMonth))
+            .ToList();
 
         return Task.CompletedTask;
     }
@@ -66,7 +71,7 @@
                 @if (Events != null)
                 {
                     <ul style="list-style:circle">
-                        @foreach (var item in Events.Where(a => a.Start.Year.Equals(CurrentDay.Year) && a.Start.Month.Equals(CurrentDay.Month) && a.Start.Day.Equals(CurrentDay.DayOfMonth)).ToList())
+                        @foreach (var item in DailyEvents)
                         {
                             <li class="text-left" title="@item.Description">
                                 @item.Name

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Data.Models
+namespace Calendar.Shared.Models
 {
     public class ApplicationUser : IdentityUser
     {
