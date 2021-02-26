@@ -61,20 +61,20 @@
 
     @if (SameMonth)
     {
-        <div class="card-header text-right p-0" title="@CurrentDay.ToString()">
+        <div class="card-header text-right py-0 px-2" title="@CurrentDay.ToString()">
 
-            <a href="javascript:void(0)" class="card-link text-right text-white p-2">@CurrentDay.DayOfMonth</a>
+            <a href="javascript:void(0)" class="card-link text-right text-white">@CurrentDay.DayOfMonth</a>
 
         </div>
-        <div class="card-body px-0">
+        <div class="card-body p-0">
             <div class="card-text">
                 @if (Events != null)
                 {
-                    <ul style="list-style:circle">
+                    <ul style="list-style:none" class="m-0 p-0">
                         @foreach (var item in DailyEvents)
                         {
-                            <li class="text-left" title="@item.Description">
-                                @item.Name
+                            <li class="text-left bg-light border" title="@item.Description">
+                                <a class="text-black-50" href="javascript:void(0)">@item.Name</a>
                             </li>
                         }
                     </ul>

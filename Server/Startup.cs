@@ -71,7 +71,7 @@ namespace Calendar.Server
                 options.MessageTemplate = "Handled {RequestPath}";
 
                 // Emit debug-level events instead of the defaults
-                options.GetLevel = (httpContext, elapsed, ex) => LogEventLevel.Debug;
+                options.GetLevel = (httpContext, elapsed, ex) => LogEventLevel.Error;
 
                 // Attach additional properties to the request completion event
                 options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>

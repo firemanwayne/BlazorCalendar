@@ -16,8 +16,8 @@ namespace Calendar.Server
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Debug)
+                .MinimumLevel.Error()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Error)
                 .Enrich.FromLogContext()
                 .WriteTo.Debug()
                 .WriteTo.File("Logs\\log.txt", rollingInterval: RollingInterval.Day)
